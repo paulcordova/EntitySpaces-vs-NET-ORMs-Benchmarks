@@ -1,9 +1,9 @@
 using EfVsDapper.Mvc.Queries;
-using EntityFrameworkVsCoreDapper.Context;
-using EntityFrameworkVsCoreDapper.Contracts;
-using EntityFrameworkVsCoreDapper.Helpers;
-using EntityFrameworkVsCoreDapper.Results;
-using EntityFrameworkVsCoreDapper.Tests;
+using Benchmarks.Tests.Net8.SqlServer.Context;
+using Benchmarks.Tests.Net8.SqlServer.Contracts;
+using Benchmarks.Tests.Net8.SqlServer.Helpers;
+using Benchmarks.Tests.Net8.SqlServer.Results;
+using Benchmarks.Tests.Net8.SqlServer.Tests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

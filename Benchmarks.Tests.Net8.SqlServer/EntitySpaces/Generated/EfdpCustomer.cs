@@ -1,0 +1,887 @@
+
+/*
+===============================================================================
+                    EntitySpaces Studio by EntitySpaces, LLC
+             Persistence Layer and Business Objects for Microsoft .NET
+             EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC
+                          http://www.entityspaces.net
+===============================================================================
+EntitySpaces Version : 2026.8.0020.0
+EntitySpaces Driver  : SQL
+Date Generated       : 30-08-2026 22:19:33
+===============================================================================
+*/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Linq;
+using System.Data;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+
+using EntitySpaces.Core;
+using EntitySpaces.Interfaces;
+using EntitySpaces.DynamicQuery;
+
+
+
+namespace BusinessObjects
+{
+	/// <summary>
+	/// Encapsulates the 'efdp_customer' table
+	/// </summary>
+
+	[Serializable]
+	[DataContract]
+	[KnownType(typeof(EfdpCustomer))]	
+	[XmlType("EfdpCustomer")]
+	public partial class EfdpCustomer : esEfdpCustomer
+	{	
+		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden | DebuggerBrowsableState.Never)]
+		protected override esEntityDebuggerView[] Debug
+		{
+			get { return base.Debug; }
+		}
+
+		override public esEntity CreateInstance()
+		{
+			return new EfdpCustomer();
+		}
+		
+		#region Static Quick Access Methods
+		static public void Delete(System.Guid id)
+		{
+			var obj = new EfdpCustomer();
+			obj.Id = id;
+			obj.AcceptChanges();
+			obj.MarkAsDeleted();
+			obj.Save();
+		}
+
+	    static public void Delete(System.Guid id, esSqlAccessType sqlAccessType)
+		{
+			var obj = new EfdpCustomer();
+			obj.Id = id;
+			obj.AcceptChanges();
+			obj.MarkAsDeleted();
+			obj.Save(sqlAccessType);
+		}
+		#endregion
+
+		
+					
+		
+	
+	}
+
+
+
+	[Serializable]
+	[CollectionDataContract]
+	[XmlType("EfdpCustomerCollection")]
+	public partial class EfdpCustomerCollection : esEfdpCustomerCollection, IEnumerable<EfdpCustomer>
+	{
+		public EfdpCustomer FindByPrimaryKey(System.Guid id)
+		{
+			return this.SingleOrDefault(e => e.Id == id);
+		}
+
+		
+				
+	}
+
+
+
+	[Serializable]	
+	public partial class EfdpCustomerQuery : esEfdpCustomerQuery
+	{
+		public EfdpCustomerQuery(string joinAlias)
+		{
+			this.es.JoinAlias = joinAlias;
+		}	
+
+		public EfdpCustomerQuery(string joinAlias, out EfdpCustomerQuery query)
+		{
+			query = this;
+			this.es.JoinAlias = joinAlias;
+		}
+
+		override protected string GetQueryName()
+		{
+			return "EfdpCustomerQuery";
+		}
+		
+					
+	
+		#region Explicit Casts
+		
+		public static explicit operator string(EfdpCustomerQuery query)
+		{
+			return EfdpCustomerQuery.SerializeHelper.ToXml(query);
+		}
+
+		public static explicit operator EfdpCustomerQuery(string query)
+		{
+			return (EfdpCustomerQuery)EfdpCustomerQuery.SerializeHelper.FromXml(query, typeof(EfdpCustomerQuery));
+		}
+		
+		#endregion		
+	}
+
+	[DataContract]
+	[Serializable]
+	abstract public partial class esEfdpCustomer : esEntity
+	{
+		public esEfdpCustomer()
+		{
+
+		}
+		
+		#region LoadByPrimaryKey
+		public virtual bool LoadByPrimaryKey(System.Guid id)
+		{
+			if(this.es.Connection.SqlAccessType == esSqlAccessType.DynamicSQL)
+				return LoadByPrimaryKeyDynamic(id);
+			else
+				return LoadByPrimaryKeyStoredProcedure(id);
+		}
+
+		public virtual bool LoadByPrimaryKey(esSqlAccessType sqlAccessType, System.Guid id)
+		{
+			if (sqlAccessType == esSqlAccessType.DynamicSQL)
+				return LoadByPrimaryKeyDynamic(id);
+			else
+				return LoadByPrimaryKeyStoredProcedure(id);
+		}
+
+		private bool LoadByPrimaryKeyDynamic(System.Guid id)
+		{
+			EfdpCustomerQuery query = new EfdpCustomerQuery();
+			query.Where(query.Id == id);
+			return this.Load(query);
+		}
+
+		private bool LoadByPrimaryKeyStoredProcedure(System.Guid id)
+		{
+			esParameters parms = new esParameters();
+			parms.Add("Id", id);
+			return this.Load(esQueryType.StoredProcedure, this.es.spLoadByPrimaryKey, parms);
+		}
+		#endregion
+		
+		#region Properties
+		
+		
+		
+		/// <summary>
+		/// Maps to efdp_customer.Id
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.Guid? Id
+		{
+			get
+			{
+				return base.GetSystemGuid(EfdpCustomerMetadata.ColumnNames.Id);
+			}
+			
+			set
+			{
+				if(base.SetSystemGuid(EfdpCustomerMetadata.ColumnNames.Id, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.Id);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.first_name
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String FirstName
+		{
+			get
+			{
+				return base.GetSystemString(EfdpCustomerMetadata.ColumnNames.FirstName);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpCustomerMetadata.ColumnNames.FirstName, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.FirstName);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.last_name
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String LastName
+		{
+			get
+			{
+				return base.GetSystemString(EfdpCustomerMetadata.ColumnNames.LastName);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpCustomerMetadata.ColumnNames.LastName, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.LastName);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.email
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String Email
+		{
+			get
+			{
+				return base.GetSystemString(EfdpCustomerMetadata.ColumnNames.Email);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpCustomerMetadata.ColumnNames.Email, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.Email);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.status
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String Status
+		{
+			get
+			{
+				return base.GetSystemString(EfdpCustomerMetadata.ColumnNames.Status);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpCustomerMetadata.ColumnNames.Status, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.Status);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.birth_date
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.DateTime? BirthDate
+		{
+			get
+			{
+				return base.GetSystemDateTime(EfdpCustomerMetadata.ColumnNames.BirthDate);
+			}
+			
+			set
+			{
+				if(base.SetSystemDateTime(EfdpCustomerMetadata.ColumnNames.BirthDate, value))
+				{
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.BirthDate);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_customer.address_id
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.Guid? AddressId
+		{
+			get
+			{
+				return base.GetSystemGuid(EfdpCustomerMetadata.ColumnNames.AddressId);
+			}
+			
+			set
+			{
+				if(base.SetSystemGuid(EfdpCustomerMetadata.ColumnNames.AddressId, value))
+				{
+					this._UpToEfdpAddressByAddressId = null;
+					this.OnPropertyChanged("UpToEfdpAddressByAddressId");
+					OnPropertyChanged(EfdpCustomerMetadata.PropertyNames.AddressId);
+				}
+			}
+		}		
+		
+		[CLSCompliant(false)]
+		internal protected EfdpAddress _UpToEfdpAddressByAddressId;
+		#endregion
+		
+		#region Housekeeping methods
+
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpCustomerMetadata.Meta();
+			}
+		}
+
+		#endregion		
+		
+		#region Query Logic
+
+		public EfdpCustomerQuery Query
+		{
+			get
+			{
+				if (this.query == null)
+				{
+					this.query = new EfdpCustomerQuery();
+					InitQuery(this.query);
+				}
+
+				return this.query;
+			}
+		}
+
+		public bool Load(EfdpCustomerQuery query)
+		{
+			this.query = query;
+			InitQuery(this.query);
+			return this.Query.Load();
+		}
+		
+		protected void InitQuery(EfdpCustomerQuery query)
+		{
+			query.OnLoadDelegate = this.OnQueryLoaded;
+			
+			if (!query.es2.HasConnection)
+			{
+				query.es2.Connection = ((IEntity)this).Connection;
+			}			
+		}
+
+		#endregion
+		
+        [IgnoreDataMember]
+		private EfdpCustomerQuery query;		
+	}
+
+
+
+	[Serializable]
+	abstract public partial class esEfdpCustomerCollection : esEntityCollection<EfdpCustomer>
+	{
+		#region Housekeeping methods
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpCustomerMetadata.Meta();
+			}
+		}
+
+		protected override string GetCollectionName()
+		{
+			return "EfdpCustomerCollection";
+		}
+
+		#endregion		
+		
+		#region Query Logic
+
+	#if (!WindowsCE)
+		[BrowsableAttribute(false)]
+	#endif
+		public EfdpCustomerQuery Query
+		{
+			get
+			{
+				if (this.query == null)
+				{
+					this.query = new EfdpCustomerQuery();
+					InitQuery(this.query);
+				}
+
+				return this.query;
+			}
+		}
+
+		public bool Load(EfdpCustomerQuery query)
+		{
+			this.query = query;
+			InitQuery(this.query);
+			return Query.Load();
+		}
+
+		override protected esDynamicQuery GetDynamicQuery()
+		{
+			if (this.query == null)
+			{
+				this.query = new EfdpCustomerQuery();
+				this.InitQuery(query);
+			}
+			return this.query;
+		}
+
+		protected void InitQuery(EfdpCustomerQuery query)
+		{
+			query.OnLoadDelegate = this.OnQueryLoaded;
+			
+			if (!query.es2.HasConnection)
+			{
+				query.es2.Connection = ((IEntityCollection)this).Connection;
+			}			
+		}
+
+		protected override void HookupQuery(esDynamicQuery query)
+		{
+			this.InitQuery((EfdpCustomerQuery)query);
+		}
+
+		#endregion
+		
+		private EfdpCustomerQuery query;
+	}
+
+
+
+	[Serializable]
+	abstract public partial class esEfdpCustomerQuery : esDynamicQuery
+	{
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpCustomerMetadata.Meta();
+			}
+		}	
+		
+		#region QueryItemFromName
+		
+        protected override esQueryItem QueryItemFromName(string name)
+        {
+            switch (name)
+            {
+				case "Id": return this.Id;
+				case "FirstName": return this.FirstName;
+				case "LastName": return this.LastName;
+				case "Email": return this.Email;
+				case "Status": return this.Status;
+				case "BirthDate": return this.BirthDate;
+				case "AddressId": return this.AddressId;
+
+                default: return null;
+            }
+        }		
+		
+		#endregion
+		
+		#region esQueryItems
+
+		public esQueryItem Id
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.Id, esSystemType.Guid); }
+		} 
+		
+		public esQueryItem FirstName
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.FirstName, esSystemType.String); }
+		} 
+		
+		public esQueryItem LastName
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.LastName, esSystemType.String); }
+		} 
+		
+		public esQueryItem Email
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.Email, esSystemType.String); }
+		} 
+		
+		public esQueryItem Status
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.Status, esSystemType.String); }
+		} 
+		
+		public esQueryItem BirthDate
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.BirthDate, esSystemType.DateTime); }
+		} 
+		
+		public esQueryItem AddressId
+		{
+			get { return new esQueryItem(this, EfdpCustomerMetadata.ColumnNames.AddressId, esSystemType.Guid); }
+		} 
+		
+		#endregion
+		
+	}
+
+
+	
+	public partial class EfdpCustomer : esEfdpCustomer
+	{
+
+		#region EfdpProductCollectionByCustomerId - Zero To Many
+		
+		static public esPrefetchMap Prefetch_EfdpProductCollectionByCustomerId
+		{
+			get
+			{
+				esPrefetchMap map = new esPrefetchMap();
+				map.PrefetchDelegate = BusinessObjects.EfdpCustomer.EfdpProductCollectionByCustomerId_Delegate;
+				map.PropertyName = "EfdpProductCollectionByCustomerId";
+				map.MyColumnName = "customer_id";
+				map.ParentColumnName = "Id";
+				map.IsMultiPartKey = false;
+				return map;
+			}
+		}		
+		
+		static private void EfdpProductCollectionByCustomerId_Delegate(esPrefetchParameters data)
+		{
+			EfdpCustomerQuery parent = new EfdpCustomerQuery(data.NextAlias());
+
+			EfdpProductQuery me = data.You != null ? data.You as EfdpProductQuery : new EfdpProductQuery(data.NextAlias());
+
+			if (data.Root == null)
+			{
+				data.Root = me;
+			}
+			
+			data.Root.InnerJoin(parent).On(parent.Id == me.CustomerId);
+
+			data.You = parent;
+		}	
+	
+		/// <summary>
+		/// Zero to Many
+		/// Foreign Key Name - FK_efdp_product_efdp_customer_customer_id
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ShouldSerializeEfdpProductCollectionByCustomerId()
+		{
+		    if(this._EfdpProductCollectionByCustomerId != null && this._EfdpProductCollectionByCustomerId.Count > 0)
+				return true;
+            else
+				return false;
+		}	
+		
+
+		[DataMember(Name="EfdpProductCollectionByCustomerId", EmitDefaultValue = false)]
+		public EfdpProductCollection EfdpProductCollectionByCustomerId
+		{
+			get
+			{
+				if(this._EfdpProductCollectionByCustomerId == null)
+				{
+					this._EfdpProductCollectionByCustomerId = new EfdpProductCollection();
+					this._EfdpProductCollectionByCustomerId.es.Connection.Name = this.es.Connection.Name;
+					this.SetPostSave("EfdpProductCollectionByCustomerId", this._EfdpProductCollectionByCustomerId);
+				
+					if (this.Id != null)
+					{
+						if (!this.es.IsLazyLoadDisabled)
+						{
+							this._EfdpProductCollectionByCustomerId.Query.Where(this._EfdpProductCollectionByCustomerId.Query.CustomerId == this.Id);
+							this._EfdpProductCollectionByCustomerId.Query.Load();
+						}
+
+						// Auto-hookup Foreign Keys
+						this._EfdpProductCollectionByCustomerId.fks.Add(EfdpProductMetadata.ColumnNames.CustomerId, this.Id);
+					}
+				}
+
+				return this._EfdpProductCollectionByCustomerId;
+			}
+			
+			set 
+			{ 
+				if (value != null) throw new Exception("'value' Must be null"); 
+			 
+				if (this._EfdpProductCollectionByCustomerId != null) 
+				{ 
+					this.RemovePostSave("EfdpProductCollectionByCustomerId"); 
+					this._EfdpProductCollectionByCustomerId = null;
+					
+				} 
+			} 			
+		}
+		
+
+		
+			
+		
+		private EfdpProductCollection _EfdpProductCollectionByCustomerId;
+		#endregion
+
+				
+				
+		#region UpToEfdpAddressByAddressId - Many To One
+		/// <summary>
+		/// Many to One
+		/// Foreign Key Name - FK_efdp_customer_efdp_address_address_id
+		/// </summary>
+	    [EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ShouldSerializeUpToEfdpAddressByAddressId()
+		{
+		    return this._UpToEfdpAddressByAddressId != null ? true : false;
+		}
+		
+
+		[DataMember(Name="UpToEfdpAddressByAddressId", EmitDefaultValue = false)]
+					
+		public EfdpAddress UpToEfdpAddressByAddressId
+		{
+			get
+			{
+                if (this._UpToEfdpAddressByAddressId == null)
+                {
+                    this._UpToEfdpAddressByAddressId = new EfdpAddress();
+                    this._UpToEfdpAddressByAddressId.es.Connection.Name = this.es.Connection.Name;
+                    this.SetPreSave("UpToEfdpAddressByAddressId", this._UpToEfdpAddressByAddressId);
+
+					if(this._UpToEfdpAddressByAddressId.Id == null && AddressId != null)
+                    {
+                        if (!this.es.IsLazyLoadDisabled)
+                        {
+							this._UpToEfdpAddressByAddressId.Query.Where(this._UpToEfdpAddressByAddressId.Query.Id == this.AddressId);
+							this._UpToEfdpAddressByAddressId.Query.Load();
+                        }
+                    }
+                }
+
+				return this._UpToEfdpAddressByAddressId;
+			}
+			
+			set
+			{
+				this.RemovePreSave("UpToEfdpAddressByAddressId");
+				
+
+				if(value == null)
+				{
+					this.AddressId = null;
+					this._UpToEfdpAddressByAddressId = null;
+				}
+				else
+				{
+					this.AddressId = value.Id;
+					this._UpToEfdpAddressByAddressId = value;
+					this.SetPreSave("UpToEfdpAddressByAddressId", this._UpToEfdpAddressByAddressId);
+				}
+				
+			}
+		}
+		#endregion
+		
+
+		
+		protected override esEntityCollectionBase CreateCollectionForPrefetch(string name)
+		{
+			esEntityCollectionBase coll = null;
+
+			switch (name)
+			{
+				case "EfdpProductCollectionByCustomerId":
+					coll = this.EfdpProductCollectionByCustomerId;
+					break;	
+			}
+
+			return coll;
+		}		
+		/// <summary>
+		/// Used internally by the entity's hierarchical properties.
+		/// </summary>
+		protected override List<esPropertyDescriptor> GetHierarchicalProperties()
+		{
+			List<esPropertyDescriptor> props = new List<esPropertyDescriptor>();
+			
+			props.Add(new esPropertyDescriptor(this, "EfdpProductCollectionByCustomerId", typeof(EfdpProductCollection), new EfdpProduct()));
+		
+			return props;
+		}
+		
+	}
+	
+
+
+
+	[Serializable]
+	public partial class EfdpCustomerMetadata : esMetadata, IMetadata
+	{
+		#region Protected Constructor
+		protected EfdpCustomerMetadata()
+		{
+			m_columns = new esColumnMetadataCollection();
+			esColumnMetadata c;
+
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.Id, 0, typeof(System.Guid), esSystemType.Guid);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.Id;
+			c.IsInPrimaryKey = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.FirstName, 1, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.FirstName;
+			c.CharacterMaxLength = 50;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.LastName, 2, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.LastName;
+			c.CharacterMaxLength = 80;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.Email, 3, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.Email;
+			c.CharacterMaxLength = 150;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.Status, 4, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.Status;
+			c.CharacterMaxLength = 20;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.BirthDate, 5, typeof(System.DateTime), esSystemType.DateTime);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.BirthDate;
+			c.CharacterMaxLength = 27;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpCustomerMetadata.ColumnNames.AddressId, 6, typeof(System.Guid), esSystemType.Guid);
+			c.PropertyName = EfdpCustomerMetadata.PropertyNames.AddressId;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+		}
+		#endregion	
+	
+		static public EfdpCustomerMetadata Meta()
+		{
+			return meta;
+		}	
+		
+		public Guid DataID
+		{
+			get { return base.m_dataID; }
+		}	
+		
+		public bool MultiProviderMode
+		{
+			get { return false; }
+		}		
+
+		public esColumnMetadataCollection Columns
+		{
+			get	{ return base.m_columns; }
+		}
+		
+		#region ColumnNames
+		public class ColumnNames
+		{ 
+			 public const string Id = "Id";
+			 public const string FirstName = "first_name";
+			 public const string LastName = "last_name";
+			 public const string Email = "email";
+			 public const string Status = "status";
+			 public const string BirthDate = "birth_date";
+			 public const string AddressId = "address_id";
+		}
+		#endregion	
+		
+		#region PropertyNames
+		public class PropertyNames
+		{ 
+			 public const string Id = "Id";
+			 public const string FirstName = "FirstName";
+			 public const string LastName = "LastName";
+			 public const string Email = "Email";
+			 public const string Status = "Status";
+			 public const string BirthDate = "BirthDate";
+			 public const string AddressId = "AddressId";
+		}
+		#endregion	
+
+		public esProviderSpecificMetadata GetProviderMetadata(string mapName)
+		{
+			MapToMeta mapMethod = mapDelegates[mapName];
+
+			if (mapMethod != null)
+				return mapMethod(mapName);
+			else
+				return null;
+		}
+		
+		#region MAP esDefault
+		
+		static private int RegisterDelegateesDefault()
+		{
+			// This is only executed once per the life of the application
+			lock (typeof(EfdpCustomerMetadata))
+			{
+				if(EfdpCustomerMetadata.mapDelegates == null)
+				{
+					EfdpCustomerMetadata.mapDelegates = new Dictionary<string,MapToMeta>();
+				}
+				
+				if (EfdpCustomerMetadata.meta == null)
+				{
+					EfdpCustomerMetadata.meta = new EfdpCustomerMetadata();
+				}
+				
+				MapToMeta mapMethod = new MapToMeta(meta.esDefault);
+				mapDelegates.Add("esDefault", mapMethod);
+				mapMethod("esDefault");
+			}
+			return 0;
+		}			
+
+		private esProviderSpecificMetadata esDefault(string mapName)
+		{
+			if(!m_providerMetadataMaps.ContainsKey(mapName))
+			{
+				esProviderSpecificMetadata meta = new esProviderSpecificMetadata();			
+
+
+				meta.AddTypeMap("Id", new esTypeMap("uniqueidentifier", "System.Guid"));
+				meta.AddTypeMap("FirstName", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("LastName", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("Email", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("Status", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("BirthDate", new esTypeMap("datetime2", "System.DateTime"));
+				meta.AddTypeMap("AddressId", new esTypeMap("uniqueidentifier", "System.Guid"));			
+				
+				
+				
+				meta.Source = "efdp_customer";
+				meta.Destination = "efdp_customer";
+				
+				meta.spInsert = "proc_efdp_customerInsert";				
+				meta.spUpdate = "proc_efdp_customerUpdate";		
+				meta.spDelete = "proc_efdp_customerDelete";
+				meta.spLoadAll = "proc_efdp_customerLoadAll";
+				meta.spLoadByPrimaryKey = "proc_efdp_customerLoadByPrimaryKey";
+				
+				this.m_providerMetadataMaps["esDefault"] = meta;
+			}
+			
+			return this.m_providerMetadataMaps["esDefault"];
+		}
+
+		#endregion
+
+		static private EfdpCustomerMetadata meta;
+		static protected Dictionary<string, MapToMeta> mapDelegates;
+		static private int _esDefault = RegisterDelegateesDefault();
+	}
+}

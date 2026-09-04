@@ -1,4 +1,4 @@
-﻿using EntityFrameworkVsCoreDapper.Results;
+﻿using Benchmarks.Tests.Net8.SqlServer.Results;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Text;

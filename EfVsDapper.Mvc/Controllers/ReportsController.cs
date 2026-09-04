@@ -1,4 +1,4 @@
-﻿using EntityFrameworkVsCoreDapper.Results;
+﻿using Benchmarks.Tests.Net8.SqlServer.Results;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Threading.Tasks;

@@ -1,0 +1,32 @@
+﻿using Benchmarks.Tests.Net8.SqlServer.Results;
+using System;
+using System.Diagnostics;
+
+namespace Benchmarks.Tests.Net8.SqlServer.Helpers
+{
+    public class ConsoleHelper
+    {
+        private readonly ResultService _resultService;
+        public ConsoleHelper(ResultService resultService)
+        {
+            _resultService = resultService;
+        }
+
+        public (Stopwatch Watch, double InitMemory) StartChrono()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var initMemory = _resultService.GetMemory();
+            return (stopwatch, initMemory);
+        }
+
+        public (TimeSpan Tempo, double Ram) StopChrono((Stopwatch Watch, double InitMemory) watch, string txt)
+        {
+            var stopMemory = _resultService.GetMemory();
+            watch.Watch.Stop();
+
+            return (watch.Watch.Elapsed, stopMemory - watch.InitMemory);
+        }
+    }
+}

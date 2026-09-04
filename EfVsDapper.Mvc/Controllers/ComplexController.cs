@@ -1,6 +1,6 @@
 ﻿using EfVsDapper.Mvc.Helpers;
-using EntityFrameworkVsCoreDapper.Contracts;
-using EntityFrameworkVsCoreDapper.Results;
+using Benchmarks.Tests.Net8.SqlServer.Contracts;
+using Benchmarks.Tests.Net8.SqlServer.Results;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

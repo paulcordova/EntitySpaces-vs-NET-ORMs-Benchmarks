@@ -1,5 +1,5 @@
-﻿using EntityFrameworkVsCoreDapper.Context;
-using EntityFrameworkVsCoreDapper.Extensions;
+﻿using Benchmarks.Tests.Net8.SqlServer.Context;
+using Benchmarks.Tests.Net8.SqlServer.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

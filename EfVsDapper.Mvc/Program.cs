@@ -1,4 +1,4 @@
-using EntityFrameworkVsCoreDapper.Context;
+using Benchmarks.Tests.Net8.SqlServer.Context;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,4 +1,4 @@
-﻿using EntityFrameworkVsCoreDapper;
+﻿using Benchmarks.Tests.Net8.SqlServer;
 using System.Linq;
 
 namespace EfVsDapper.Mvc.Queries

@@ -1,0 +1,824 @@
+
+/*
+===============================================================================
+                    EntitySpaces Studio by EntitySpaces, LLC
+             Persistence Layer and Business Objects for Microsoft .NET
+             EntitySpaces(TM) is a legal trademark of EntitySpaces, LLC
+                          http://www.entityspaces.net
+===============================================================================
+EntitySpaces Version : 2026.8.0020.0
+EntitySpaces Driver  : SQL
+Date Generated       : 30-08-2026 22:19:31
+===============================================================================
+*/
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
+using System.Linq;
+using System.Data;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+
+using EntitySpaces.Core;
+using EntitySpaces.Interfaces;
+using EntitySpaces.DynamicQuery;
+
+
+
+namespace BusinessObjects
+{
+	/// <summary>
+	/// Encapsulates the 'efdp_address' table
+	/// </summary>
+
+	[Serializable]
+	[DataContract]
+	[KnownType(typeof(EfdpAddress))]	
+	[XmlType("EfdpAddress")]
+	public partial class EfdpAddress : esEfdpAddress
+	{	
+		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden | DebuggerBrowsableState.Never)]
+		protected override esEntityDebuggerView[] Debug
+		{
+			get { return base.Debug; }
+		}
+
+		override public esEntity CreateInstance()
+		{
+			return new EfdpAddress();
+		}
+		
+		#region Static Quick Access Methods
+		static public void Delete(System.Guid id)
+		{
+			var obj = new EfdpAddress();
+			obj.Id = id;
+			obj.AcceptChanges();
+			obj.MarkAsDeleted();
+			obj.Save();
+		}
+
+	    static public void Delete(System.Guid id, esSqlAccessType sqlAccessType)
+		{
+			var obj = new EfdpAddress();
+			obj.Id = id;
+			obj.AcceptChanges();
+			obj.MarkAsDeleted();
+			obj.Save(sqlAccessType);
+		}
+		#endregion
+
+		
+					
+		
+	
+	}
+
+
+
+	[Serializable]
+	[CollectionDataContract]
+	[XmlType("EfdpAddressCollection")]
+	public partial class EfdpAddressCollection : esEfdpAddressCollection, IEnumerable<EfdpAddress>
+	{
+		public EfdpAddress FindByPrimaryKey(System.Guid id)
+		{
+			return this.SingleOrDefault(e => e.Id == id);
+		}
+
+		
+				
+	}
+
+
+
+	[Serializable]	
+	public partial class EfdpAddressQuery : esEfdpAddressQuery
+	{
+		public EfdpAddressQuery(string joinAlias)
+		{
+			this.es.JoinAlias = joinAlias;
+		}	
+
+		public EfdpAddressQuery(string joinAlias, out EfdpAddressQuery query)
+		{
+			query = this;
+			this.es.JoinAlias = joinAlias;
+		}
+
+		override protected string GetQueryName()
+		{
+			return "EfdpAddressQuery";
+		}
+		
+					
+	
+		#region Explicit Casts
+		
+		public static explicit operator string(EfdpAddressQuery query)
+		{
+			return EfdpAddressQuery.SerializeHelper.ToXml(query);
+		}
+
+		public static explicit operator EfdpAddressQuery(string query)
+		{
+			return (EfdpAddressQuery)EfdpAddressQuery.SerializeHelper.FromXml(query, typeof(EfdpAddressQuery));
+		}
+		
+		#endregion		
+	}
+
+	[DataContract]
+	[Serializable]
+	abstract public partial class esEfdpAddress : esEntity
+	{
+		public esEfdpAddress()
+		{
+
+		}
+		
+		#region LoadByPrimaryKey
+		public virtual bool LoadByPrimaryKey(System.Guid id)
+		{
+			if(this.es.Connection.SqlAccessType == esSqlAccessType.DynamicSQL)
+				return LoadByPrimaryKeyDynamic(id);
+			else
+				return LoadByPrimaryKeyStoredProcedure(id);
+		}
+
+		public virtual bool LoadByPrimaryKey(esSqlAccessType sqlAccessType, System.Guid id)
+		{
+			if (sqlAccessType == esSqlAccessType.DynamicSQL)
+				return LoadByPrimaryKeyDynamic(id);
+			else
+				return LoadByPrimaryKeyStoredProcedure(id);
+		}
+
+		private bool LoadByPrimaryKeyDynamic(System.Guid id)
+		{
+			EfdpAddressQuery query = new EfdpAddressQuery();
+			query.Where(query.Id == id);
+			return this.Load(query);
+		}
+
+		private bool LoadByPrimaryKeyStoredProcedure(System.Guid id)
+		{
+			esParameters parms = new esParameters();
+			parms.Add("Id", id);
+			return this.Load(esQueryType.StoredProcedure, this.es.spLoadByPrimaryKey, parms);
+		}
+		#endregion
+		
+		#region Properties
+		
+		
+		
+		/// <summary>
+		/// Maps to efdp_address.Id
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.Guid? Id
+		{
+			get
+			{
+				return base.GetSystemGuid(EfdpAddressMetadata.ColumnNames.Id);
+			}
+			
+			set
+			{
+				if(base.SetSystemGuid(EfdpAddressMetadata.ColumnNames.Id, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.Id);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.number
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String Number
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.Number);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.Number, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.Number);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.street
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String Street
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.Street);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.Street, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.Street);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.city
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String City
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.City);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.City, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.City);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.country
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String Country
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.Country);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.Country, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.Country);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.zip_code
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String ZipCode
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.ZipCode);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.ZipCode, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.ZipCode);
+				}
+			}
+		}		
+		
+		/// <summary>
+		/// Maps to efdp_address.administrative_region
+		/// </summary>
+		[DataMember(EmitDefaultValue=false)]
+		virtual public System.String AdministrativeRegion
+		{
+			get
+			{
+				return base.GetSystemString(EfdpAddressMetadata.ColumnNames.AdministrativeRegion);
+			}
+			
+			set
+			{
+				if(base.SetSystemString(EfdpAddressMetadata.ColumnNames.AdministrativeRegion, value))
+				{
+					OnPropertyChanged(EfdpAddressMetadata.PropertyNames.AdministrativeRegion);
+				}
+			}
+		}		
+		
+		#endregion
+		
+		#region Housekeeping methods
+
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpAddressMetadata.Meta();
+			}
+		}
+
+		#endregion		
+		
+		#region Query Logic
+
+		public EfdpAddressQuery Query
+		{
+			get
+			{
+				if (this.query == null)
+				{
+					this.query = new EfdpAddressQuery();
+					InitQuery(this.query);
+				}
+
+				return this.query;
+			}
+		}
+
+		public bool Load(EfdpAddressQuery query)
+		{
+			this.query = query;
+			InitQuery(this.query);
+			return this.Query.Load();
+		}
+		
+		protected void InitQuery(EfdpAddressQuery query)
+		{
+			query.OnLoadDelegate = this.OnQueryLoaded;
+			
+			if (!query.es2.HasConnection)
+			{
+				query.es2.Connection = ((IEntity)this).Connection;
+			}			
+		}
+
+		#endregion
+		
+        [IgnoreDataMember]
+		private EfdpAddressQuery query;		
+	}
+
+
+
+	[Serializable]
+	abstract public partial class esEfdpAddressCollection : esEntityCollection<EfdpAddress>
+	{
+		#region Housekeeping methods
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpAddressMetadata.Meta();
+			}
+		}
+
+		protected override string GetCollectionName()
+		{
+			return "EfdpAddressCollection";
+		}
+
+		#endregion		
+		
+		#region Query Logic
+
+	#if (!WindowsCE)
+		[BrowsableAttribute(false)]
+	#endif
+		public EfdpAddressQuery Query
+		{
+			get
+			{
+				if (this.query == null)
+				{
+					this.query = new EfdpAddressQuery();
+					InitQuery(this.query);
+				}
+
+				return this.query;
+			}
+		}
+
+		public bool Load(EfdpAddressQuery query)
+		{
+			this.query = query;
+			InitQuery(this.query);
+			return Query.Load();
+		}
+
+		override protected esDynamicQuery GetDynamicQuery()
+		{
+			if (this.query == null)
+			{
+				this.query = new EfdpAddressQuery();
+				this.InitQuery(query);
+			}
+			return this.query;
+		}
+
+		protected void InitQuery(EfdpAddressQuery query)
+		{
+			query.OnLoadDelegate = this.OnQueryLoaded;
+			
+			if (!query.es2.HasConnection)
+			{
+				query.es2.Connection = ((IEntityCollection)this).Connection;
+			}			
+		}
+
+		protected override void HookupQuery(esDynamicQuery query)
+		{
+			this.InitQuery((EfdpAddressQuery)query);
+		}
+
+		#endregion
+		
+		private EfdpAddressQuery query;
+	}
+
+
+
+	[Serializable]
+	abstract public partial class esEfdpAddressQuery : esDynamicQuery
+	{
+		override protected IMetadata Meta
+		{
+			get
+			{
+				return EfdpAddressMetadata.Meta();
+			}
+		}	
+		
+		#region QueryItemFromName
+		
+        protected override esQueryItem QueryItemFromName(string name)
+        {
+            switch (name)
+            {
+				case "Id": return this.Id;
+				case "Number": return this.Number;
+				case "Street": return this.Street;
+				case "City": return this.City;
+				case "Country": return this.Country;
+				case "ZipCode": return this.ZipCode;
+				case "AdministrativeRegion": return this.AdministrativeRegion;
+
+                default: return null;
+            }
+        }		
+		
+		#endregion
+		
+		#region esQueryItems
+
+		public esQueryItem Id
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.Id, esSystemType.Guid); }
+		} 
+		
+		public esQueryItem Number
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.Number, esSystemType.String); }
+		} 
+		
+		public esQueryItem Street
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.Street, esSystemType.String); }
+		} 
+		
+		public esQueryItem City
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.City, esSystemType.String); }
+		} 
+		
+		public esQueryItem Country
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.Country, esSystemType.String); }
+		} 
+		
+		public esQueryItem ZipCode
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.ZipCode, esSystemType.String); }
+		} 
+		
+		public esQueryItem AdministrativeRegion
+		{
+			get { return new esQueryItem(this, EfdpAddressMetadata.ColumnNames.AdministrativeRegion, esSystemType.String); }
+		} 
+		
+		#endregion
+		
+	}
+
+
+	
+	public partial class EfdpAddress : esEfdpAddress
+	{
+
+		#region EfdpCustomerCollectionByAddressId - Zero To Many
+		
+		static public esPrefetchMap Prefetch_EfdpCustomerCollectionByAddressId
+		{
+			get
+			{
+				esPrefetchMap map = new esPrefetchMap();
+				map.PrefetchDelegate = BusinessObjects.EfdpAddress.EfdpCustomerCollectionByAddressId_Delegate;
+				map.PropertyName = "EfdpCustomerCollectionByAddressId";
+				map.MyColumnName = "address_id";
+				map.ParentColumnName = "Id";
+				map.IsMultiPartKey = false;
+				return map;
+			}
+		}		
+		
+		static private void EfdpCustomerCollectionByAddressId_Delegate(esPrefetchParameters data)
+		{
+			EfdpAddressQuery parent = new EfdpAddressQuery(data.NextAlias());
+
+			EfdpCustomerQuery me = data.You != null ? data.You as EfdpCustomerQuery : new EfdpCustomerQuery(data.NextAlias());
+
+			if (data.Root == null)
+			{
+				data.Root = me;
+			}
+			
+			data.Root.InnerJoin(parent).On(parent.Id == me.AddressId);
+
+			data.You = parent;
+		}	
+	
+		/// <summary>
+		/// Zero to Many
+		/// Foreign Key Name - FK_efdp_customer_efdp_address_address_id
+		/// </summary>
+		[EditorBrowsable(EditorBrowsableState.Never)]
+		public bool ShouldSerializeEfdpCustomerCollectionByAddressId()
+		{
+		    if(this._EfdpCustomerCollectionByAddressId != null && this._EfdpCustomerCollectionByAddressId.Count > 0)
+				return true;
+            else
+				return false;
+		}	
+		
+
+		[DataMember(Name="EfdpCustomerCollectionByAddressId", EmitDefaultValue = false)]
+		public EfdpCustomerCollection EfdpCustomerCollectionByAddressId
+		{
+			get
+			{
+				if(this._EfdpCustomerCollectionByAddressId == null)
+				{
+					this._EfdpCustomerCollectionByAddressId = new EfdpCustomerCollection();
+					this._EfdpCustomerCollectionByAddressId.es.Connection.Name = this.es.Connection.Name;
+					this.SetPostSave("EfdpCustomerCollectionByAddressId", this._EfdpCustomerCollectionByAddressId);
+				
+					if (this.Id != null)
+					{
+						if (!this.es.IsLazyLoadDisabled)
+						{
+							this._EfdpCustomerCollectionByAddressId.Query.Where(this._EfdpCustomerCollectionByAddressId.Query.AddressId == this.Id);
+							this._EfdpCustomerCollectionByAddressId.Query.Load();
+						}
+
+						// Auto-hookup Foreign Keys
+						this._EfdpCustomerCollectionByAddressId.fks.Add(EfdpCustomerMetadata.ColumnNames.AddressId, this.Id);
+					}
+				}
+
+				return this._EfdpCustomerCollectionByAddressId;
+			}
+			
+			set 
+			{ 
+				if (value != null) throw new Exception("'value' Must be null"); 
+			 
+				if (this._EfdpCustomerCollectionByAddressId != null) 
+				{ 
+					this.RemovePostSave("EfdpCustomerCollectionByAddressId"); 
+					this._EfdpCustomerCollectionByAddressId = null;
+					
+				} 
+			} 			
+		}
+		
+
+		
+			
+		
+		private EfdpCustomerCollection _EfdpCustomerCollectionByAddressId;
+		#endregion
+
+		
+		protected override esEntityCollectionBase CreateCollectionForPrefetch(string name)
+		{
+			esEntityCollectionBase coll = null;
+
+			switch (name)
+			{
+				case "EfdpCustomerCollectionByAddressId":
+					coll = this.EfdpCustomerCollectionByAddressId;
+					break;	
+			}
+
+			return coll;
+		}		
+		/// <summary>
+		/// Used internally by the entity's hierarchical properties.
+		/// </summary>
+		protected override List<esPropertyDescriptor> GetHierarchicalProperties()
+		{
+			List<esPropertyDescriptor> props = new List<esPropertyDescriptor>();
+			
+			props.Add(new esPropertyDescriptor(this, "EfdpCustomerCollectionByAddressId", typeof(EfdpCustomerCollection), new EfdpCustomer()));
+		
+			return props;
+		}
+		
+	}
+	
+
+
+
+	[Serializable]
+	public partial class EfdpAddressMetadata : esMetadata, IMetadata
+	{
+		#region Protected Constructor
+		protected EfdpAddressMetadata()
+		{
+			m_columns = new esColumnMetadataCollection();
+			esColumnMetadata c;
+
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.Id, 0, typeof(System.Guid), esSystemType.Guid);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.Id;
+			c.IsInPrimaryKey = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.Number, 1, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.Number;
+			c.CharacterMaxLength = 40;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.Street, 2, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.Street;
+			c.CharacterMaxLength = 150;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.City, 3, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.City;
+			c.CharacterMaxLength = 80;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.Country, 4, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.Country;
+			c.CharacterMaxLength = 80;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.ZipCode, 5, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.ZipCode;
+			c.CharacterMaxLength = 30;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+			c = new esColumnMetadata(EfdpAddressMetadata.ColumnNames.AdministrativeRegion, 6, typeof(System.String), esSystemType.String);
+			c.PropertyName = EfdpAddressMetadata.PropertyNames.AdministrativeRegion;
+			c.CharacterMaxLength = 5;
+			c.IsNullable = true;
+			m_columns.Add(c);
+				
+		}
+		#endregion	
+	
+		static public EfdpAddressMetadata Meta()
+		{
+			return meta;
+		}	
+		
+		public Guid DataID
+		{
+			get { return base.m_dataID; }
+		}	
+		
+		public bool MultiProviderMode
+		{
+			get { return false; }
+		}		
+
+		public esColumnMetadataCollection Columns
+		{
+			get	{ return base.m_columns; }
+		}
+		
+		#region ColumnNames
+		public class ColumnNames
+		{ 
+			 public const string Id = "Id";
+			 public const string Number = "number";
+			 public const string Street = "street";
+			 public const string City = "city";
+			 public const string Country = "country";
+			 public const string ZipCode = "zip_code";
+			 public const string AdministrativeRegion = "administrative_region";
+		}
+		#endregion	
+		
+		#region PropertyNames
+		public class PropertyNames
+		{ 
+			 public const string Id = "Id";
+			 public const string Number = "Number";
+			 public const string Street = "Street";
+			 public const string City = "City";
+			 public const string Country = "Country";
+			 public const string ZipCode = "ZipCode";
+			 public const string AdministrativeRegion = "AdministrativeRegion";
+		}
+		#endregion	
+
+		public esProviderSpecificMetadata GetProviderMetadata(string mapName)
+		{
+			MapToMeta mapMethod = mapDelegates[mapName];
+
+			if (mapMethod != null)
+				return mapMethod(mapName);
+			else
+				return null;
+		}
+		
+		#region MAP esDefault
+		
+		static private int RegisterDelegateesDefault()
+		{
+			// This is only executed once per the life of the application
+			lock (typeof(EfdpAddressMetadata))
+			{
+				if(EfdpAddressMetadata.mapDelegates == null)
+				{
+					EfdpAddressMetadata.mapDelegates = new Dictionary<string,MapToMeta>();
+				}
+				
+				if (EfdpAddressMetadata.meta == null)
+				{
+					EfdpAddressMetadata.meta = new EfdpAddressMetadata();
+				}
+				
+				MapToMeta mapMethod = new MapToMeta(meta.esDefault);
+				mapDelegates.Add("esDefault", mapMethod);
+				mapMethod("esDefault");
+			}
+			return 0;
+		}			
+
+		private esProviderSpecificMetadata esDefault(string mapName)
+		{
+			if(!m_providerMetadataMaps.ContainsKey(mapName))
+			{
+				esProviderSpecificMetadata meta = new esProviderSpecificMetadata();			
+
+
+				meta.AddTypeMap("Id", new esTypeMap("uniqueidentifier", "System.Guid"));
+				meta.AddTypeMap("Number", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("Street", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("City", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("Country", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("ZipCode", new esTypeMap("nvarchar", "System.String"));
+				meta.AddTypeMap("AdministrativeRegion", new esTypeMap("nvarchar", "System.String"));			
+				
+				
+				
+				meta.Source = "efdp_address";
+				meta.Destination = "efdp_address";
+				
+				meta.spInsert = "proc_efdp_addressInsert";				
+				meta.spUpdate = "proc_efdp_addressUpdate";		
+				meta.spDelete = "proc_efdp_addressDelete";
+				meta.spLoadAll = "proc_efdp_addressLoadAll";
+				meta.spLoadByPrimaryKey = "proc_efdp_addressLoadByPrimaryKey";
+				
+				this.m_providerMetadataMaps["esDefault"] = meta;
+			}
+			
+			return this.m_providerMetadataMaps["esDefault"];
+		}
+
+		#endregion
+
+		static private EfdpAddressMetadata meta;
+		static protected Dictionary<string, MapToMeta> mapDelegates;
+		static private int _esDefault = RegisterDelegateesDefault();
+	}
+}
