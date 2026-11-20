@@ -1,16 +1,18 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
+using Benchmarks.Tests.Net8.SqlServer.Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Benchmarks.Tests.Net8.SqlServer.Tests;
-
 
 namespace Benchmarks.Runner.Net8.SqlServer
 {
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelectsEntitySpaces1
     {

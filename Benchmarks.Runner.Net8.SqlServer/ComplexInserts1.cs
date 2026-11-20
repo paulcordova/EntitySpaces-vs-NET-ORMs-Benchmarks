@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Benchmarks.Runner.Net8.SqlServer
 {
-    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     //[SimpleJob(RunStrategy.Monitoring, iterationCount: 5, warmupCount: 2)]
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class ComplexInserts1
     {
@@ -55,9 +56,10 @@ namespace Benchmarks.Runner.Net8.SqlServer
             await _complexService.InsertComplexCustomersEntitySpaces(1, _esService);
     }
 
-    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     //[SimpleJob(RunStrategy.Monitoring, iterationCount: 5, warmupCount: 2)]
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class ComplexInserts5
     {
@@ -107,9 +109,10 @@ namespace Benchmarks.Runner.Net8.SqlServer
     }
 
 
-    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     //[SimpleJob(RunStrategy.Monitoring, iterationCount: 5, warmupCount: 2)]
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class ComplexInserts20
     {

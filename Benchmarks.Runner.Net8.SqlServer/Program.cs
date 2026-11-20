@@ -10,25 +10,25 @@ namespace Benchmarks.Runner.Net8.SqlServer
         {
             // ========== CONFIGURACIÓN ==========
             // Cambia a true para ejecutar, false para omitir
-            bool runInserts1 = false;
-            bool runInserts5 = false;
-            bool runInserts20 = false;
-            bool runInserts200 = false;
+            bool runInserts1 = true;
+            bool runInserts5 = true;
+            bool runInserts20 = true;
+            bool runInserts200 = true;
 
-            bool runSelects1 = false;
-            bool runSelects5 = false;
-            bool runSelects50 = false;
-            bool runSelects500 = false;
-            bool runSelects5000 = false;
+            bool runSelects1 = true;
+            bool runSelects5 = true;
+            bool runSelects50 = true;
+            bool runSelects500 = true;
+            bool runSelects5000 = true;
 
-            bool runEntitySpacesInserts1 = false;  // si ya tienes estas clases
-            bool runEntitySpacesSelects1 = false;
+            bool runEntitySpacesInserts1 = true;  // si ya tienes estas clases
+            bool runEntitySpacesSelects1 = true;
 
             // NUEVO: Insert complejo de EntitySpaces (1 cliente con sus relaciones)
 
-            bool runCplxInserts1 = false;
-            bool runCplxInserts5 = false;
-            bool runCplxInserts20 = false;
+            bool runCplxInserts1 = true;
+            bool runCplxInserts5 = true;
+            bool runCplxInserts20 = true;
 
 
             // ===================================
@@ -62,8 +62,8 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
             if (runCplxSelects1) _ = BenchmarkRunner.Run<ComplexSelects1>();
             if (runCplxSelects5) _ = BenchmarkRunner.Run<ComplexSelects5>();
-            //if (runCplxSelects50) _ = BenchmarkRunner.Run<ComplexSelects50>();
-            //if (runCplxSelects500) _ = BenchmarkRunner.Run<ComplexSelects500>();
+            if (runCplxSelects50) _ = BenchmarkRunner.Run<ComplexSelects50>();
+            if (runCplxSelects500) _ = BenchmarkRunner.Run<ComplexSelects500>();
 
 
 

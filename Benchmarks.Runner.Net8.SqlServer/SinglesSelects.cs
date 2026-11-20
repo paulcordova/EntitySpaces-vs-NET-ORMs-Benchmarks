@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
 using Benchmarks.Tests.Net8.SqlServer.Context;
 using Benchmarks.Tests.Net8.SqlServer.Tests;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Benchmarks.Runner.Net8.SqlServer
 {
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelects1
     {
@@ -54,7 +57,9 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsEntitySpaces1() => await _entitySpacesService.SelectSingleProducts(1);
     }
 
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelects5
     {
@@ -104,7 +109,9 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     }
 
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelects50
     {
@@ -153,7 +160,9 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     }
 
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelects500
     {
@@ -202,7 +211,9 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     }
 
+    [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesSelects5000
     {

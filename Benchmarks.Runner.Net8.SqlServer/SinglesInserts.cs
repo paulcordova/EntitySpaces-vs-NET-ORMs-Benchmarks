@@ -11,6 +11,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
 {
     [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesInserts1
     {
@@ -62,6 +63,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesInserts5
     {
@@ -113,6 +115,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesInserts20
     {
@@ -164,6 +167,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
 
     [SimpleJob(RunStrategy.ColdStart, iterationCount: 10, warmupCount: 3)]
     [MarkdownExporterAttribute.GitHub]
+    [MemoryDiagnoser]
     [HtmlExporter]
     public class SinglesInserts200
     {
