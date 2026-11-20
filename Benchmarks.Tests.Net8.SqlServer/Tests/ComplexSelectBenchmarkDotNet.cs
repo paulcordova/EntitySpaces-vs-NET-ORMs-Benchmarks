@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Benchmarks.Tests.Net8.SqlServer.Context;
 using Benchmarks.Tests.Net8.SqlServer.Dtos;
 using Benchmarks.Tests.Net8.SqlServer.Extensions;
@@ -160,12 +160,14 @@ namespace Benchmarks.Tests.Net8.SqlServer.Tests
                 .Take(take)
                 .ToListEf6Async();
 
-            // Consulta principal con Include en cadena
-            var addresses = await context.Address
-                .Where(a => addressIds.Contains(a.Id))
-                .Include("Customers.Products.ProductPage") // ← Cadena, no lambda
-                .AsNoTracking()
-                .ToListEf6Async(); // ← ToListEf6Async como en el método que funciona
+            // Consulta principal con Include en cadena.
+            // Include must be the System.Data.Entity extension and AsNoTracking the DbQuery instance
+            // method (called before Where, which returns IQueryable): this file also imports
+            // Microsoft.EntityFrameworkCore, whose extensions bind to the same IQueryable and are
+            // ignored by the EF6 provider, leaving every address with an empty graph.
+            var query = context.Address.AsNoTracking().Where(a => addressIds.Contains(a.Id));
+            var withGraph = System.Data.Entity.QueryableExtensions.Include(query, "Customers.Products.ProductPage");
+            var addresses = await withGraph.ToListEf6Async();
 
             // Mantener orden (opcional)
             addresses = addresses

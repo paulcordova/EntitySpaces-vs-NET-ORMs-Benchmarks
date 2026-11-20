@@ -1,4 +1,4 @@
-﻿using Bogus;
+using Bogus;
 using BusinessObjects;
 using Benchmarks.Tests.Net8.SqlServer.Dtos;
 using EntitySpaces;
@@ -407,8 +407,11 @@ namespace Benchmarks.Tests.Net8.SqlServer.Tests
                 .ToCollection<EfdpAddressCollection>();
 
             // 3. Agrupación en memoria para construir el grafo anidado
+            // The entity Id is not part of the projection (the query selects the aliased
+            // AddressId column), so grouping by row.Id collapses every address into one
+            // group. Group by the projected alias instead.
             var result = flatData
-                .GroupBy(row => row.Id) // row.Id es AddressId (clave primaria)
+                .GroupBy(row => (Guid)row.dynamic.AddressId) // AddressId is the projected alias
                 .Select(addressGroup =>
                 {
                     var firstAddress = addressGroup.First();
