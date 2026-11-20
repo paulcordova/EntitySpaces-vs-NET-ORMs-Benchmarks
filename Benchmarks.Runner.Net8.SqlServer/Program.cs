@@ -44,6 +44,13 @@ namespace Benchmarks.Runner.Net8.SqlServer
                 return;
             }
 
+            // Cross-checks the graph-read implementations; run it with --validate.
+            if (args.Any(a => a.Equals("--validate", StringComparison.OrdinalIgnoreCase)))
+            {
+                Validation.RunGraphReadChecksAsync().GetAwaiter().GetResult();
+                return;
+            }
+
             // The filter is a case-insensitive substring match on the benchmark class name.
             bool Enabled(string className) =>
                 string.IsNullOrEmpty(filter) ||
