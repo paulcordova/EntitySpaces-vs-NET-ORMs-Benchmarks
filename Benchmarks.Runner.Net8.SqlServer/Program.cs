@@ -1,6 +1,6 @@
-﻿using BenchmarkDotNet.Running;
-using Benchmarks.Tests.Net8.SqlServer.Dtos;
-using System.Collections.Generic;
+using BenchmarkDotNet.Running;
+using System;
+using System.Linq;
 
 namespace Benchmarks.Runner.Net8.SqlServer
 {
@@ -8,8 +8,10 @@ namespace Benchmarks.Runner.Net8.SqlServer
     {
         static void Main(string[] args)
         {
-            // ========== CONFIGURACIÓN ==========
-            // Cambia a true para ejecutar, false para omitir
+            // ========== CONFIGURATION ==========
+            // Flip a flag to true to run that scenario, false to skip it.
+            // Command line: --filter=<text> runs only the classes whose name contains <text>
+            //               --list           prints the class names and exits.
             bool runInserts1 = true;
             bool runInserts5 = true;
             bool runInserts20 = true;
@@ -21,52 +23,93 @@ namespace Benchmarks.Runner.Net8.SqlServer
             bool runSelects500 = true;
             bool runSelects5000 = true;
 
-            bool runEntitySpacesInserts1 = true;  // si ya tienes estas clases
+            bool runEntitySpacesInserts1 = true;
             bool runEntitySpacesSelects1 = true;
-
-            // NUEVO: Insert complejo de EntitySpaces (1 cliente con sus relaciones)
 
             bool runCplxInserts1 = true;
             bool runCplxInserts5 = true;
             bool runCplxInserts20 = true;
 
-
-            // ===================================
-
-            // --- Selecciones simples ---
-            if (runInserts1) _ = BenchmarkRunner.Run<SinglesInserts1>();
-            if (runInserts5) _ = BenchmarkRunner.Run<SinglesInserts5>();
-            if (runInserts20) _ = BenchmarkRunner.Run<SinglesInserts20>();
-            if (runInserts200) _ = BenchmarkRunner.Run<SinglesInserts200>();
-
-            if (runSelects1) _ = BenchmarkRunner.Run<SinglesSelects1>();
-            if (runSelects5) _ = BenchmarkRunner.Run<SinglesSelects5>();
-            if (runSelects50) _ = BenchmarkRunner.Run<SinglesSelects50>();
-            if (runSelects500) _ = BenchmarkRunner.Run<SinglesSelects500>();
-            if (runSelects5000) _ = BenchmarkRunner.Run<SinglesSelects5000>();
-
-            // --- EntitySpaces simples ---
-            if (runEntitySpacesInserts1) _ = BenchmarkRunner.Run<SinglesInsertsEntitySpaces1>();
-            if (runEntitySpacesSelects1) _ = BenchmarkRunner.Run<SinglesSelectsEntitySpaces1>();
-
-            // --- NEW for EntityFramework - EntityFramework Core - EntitySpaces2026
-            if (runCplxInserts1) _ = BenchmarkRunner.Run<ComplexInserts1>();
-            if (runCplxInserts5) _ = BenchmarkRunner.Run<ComplexInserts5>();
-            if (runCplxInserts20) _ = BenchmarkRunner.Run<ComplexInserts20>();
-
-            // Complex Selects
             bool runCplxSelects1 = true;
             bool runCplxSelects5 = true;
             bool runCplxSelects50 = true;
             bool runCplxSelects500 = true;
+            // ===================================
 
-            if (runCplxSelects1) _ = BenchmarkRunner.Run<ComplexSelects1>();
-            if (runCplxSelects5) _ = BenchmarkRunner.Run<ComplexSelects5>();
-            if (runCplxSelects50) _ = BenchmarkRunner.Run<ComplexSelects50>();
-            if (runCplxSelects500) _ = BenchmarkRunner.Run<ComplexSelects500>();
+            var filter = GetOption(args, "--filter");
+            if (args.Any(a => a.Equals("--list", StringComparison.OrdinalIgnoreCase)))
+            {
+                foreach (var name in TypeNames)
+                    Console.WriteLine(name);
+                return;
+            }
 
+            // The filter is a case-insensitive substring match on the benchmark class name.
+            bool Enabled(string className) =>
+                string.IsNullOrEmpty(filter) ||
+                className.Contains(filter, StringComparison.OrdinalIgnoreCase);
 
+            void Run<TBenchmark>()
+            {
+                var name = typeof(TBenchmark).Name;
+                if (!Enabled(name))
+                {
+                    Console.WriteLine($"-- skipped {name} (filter: {filter})");
+                    return;
+                }
+                _ = BenchmarkRunner.Run<TBenchmark>();
+            }
 
+            // --- Single-table writes ---
+            if (runInserts1) Run<SinglesInserts1>();
+            if (runInserts5) Run<SinglesInserts5>();
+            if (runInserts20) Run<SinglesInserts20>();
+            if (runInserts200) Run<SinglesInserts200>();
+
+            // --- Single-table reads ---
+            if (runSelects1) Run<SinglesSelects1>();
+            if (runSelects5) Run<SinglesSelects5>();
+            if (runSelects50) Run<SinglesSelects50>();
+            if (runSelects500) Run<SinglesSelects500>();
+            if (runSelects5000) Run<SinglesSelects5000>();
+
+            // --- EntitySpaces isolation runs ---
+            if (runEntitySpacesInserts1) Run<SinglesInsertsEntitySpaces1>();
+            if (runEntitySpacesSelects1) Run<SinglesSelectsEntitySpaces1>();
+
+            // --- Graph writes ---
+            if (runCplxInserts1) Run<ComplexInserts1>();
+            if (runCplxInserts5) Run<ComplexInserts5>();
+            if (runCplxInserts20) Run<ComplexInserts20>();
+
+            // --- Graph reads ---
+            if (runCplxSelects1) Run<ComplexSelects1>();
+            if (runCplxSelects5) Run<ComplexSelects5>();
+            if (runCplxSelects50) Run<ComplexSelects50>();
+            if (runCplxSelects500) Run<ComplexSelects500>();
+        }
+
+        // Every benchmark class, in run order. Used by --list.
+        private static readonly string[] TypeNames =
+        {
+            nameof(SinglesInserts1), nameof(SinglesInserts5), nameof(SinglesInserts20), nameof(SinglesInserts200),
+            nameof(SinglesSelects1), nameof(SinglesSelects5), nameof(SinglesSelects50), nameof(SinglesSelects500), nameof(SinglesSelects5000),
+            nameof(SinglesInsertsEntitySpaces1), nameof(SinglesSelectsEntitySpaces1),
+            nameof(ComplexInserts1), nameof(ComplexInserts5), nameof(ComplexInserts20),
+            nameof(ComplexSelects1), nameof(ComplexSelects5), nameof(ComplexSelects50), nameof(ComplexSelects500)
+        };
+
+        // Reads "--name=value" or "--name value" from the command line.
+        private static string GetOption(string[] args, string name)
+        {
+            for (var i = 0; i < args.Length; i++)
+            {
+                if (args[i].StartsWith(name + "=", StringComparison.OrdinalIgnoreCase))
+                    return args[i].Substring(name.Length + 1);
+                if (args[i].Equals(name, StringComparison.OrdinalIgnoreCase) && i + 1 < args.Length)
+                    return args[i + 1];
+            }
+            return null;
         }
     }
 }
