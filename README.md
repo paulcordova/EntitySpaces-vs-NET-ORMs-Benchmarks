@@ -12,6 +12,10 @@ BenchmarkDotNet comparison of **EntitySpaces 2026.11** against **Dapper 2.1**, *
 - **Graph writes hold up.** A customer with its address, 5 products and 5 product pages costs 276 ms at 20 customers, **1.18× behind Dapper** and **1.19× ahead of EF6**.
 - **Graph reads win at scale.** 500 addresses with their customers and products take **113 ms in EntitySpaces**, against 190 ms in EF Core, 413 ms in Dapper and 528 ms in EF6.
 
+![EntitySpaces compared with the other four stacks](docs/images/entityspaces-wins.png)
+
+*Left: the single-insert scenario, where EntitySpaces is the fastest of the five stacks. Right: the graph read of 500 addresses (5,000 products), where it wins at scale. Median of 10 cold-start iterations on .NET 10.0.15.*
+
 > Every number below comes from the 2026-11-20 run on .NET 10. The raw BenchmarkDotNet output is committed under [`docs/results/`](docs/results/) and the previous .NET 8 / EntitySpaces 2026.8 run is kept there as the baseline.
 
 ## At a glance
@@ -72,9 +76,12 @@ The isolation runs measured **0.606 ms** (select) and **4.9 ms** (insert) for En
 | EntitySpaces | `EntitySpaces.ORM.SqlServer.NET` **2026.11.0** | `Efdp*` entities generated with EntitySpaces Studio 2026.11.0001.0 |
 | Dapper | **2.1.100** (+ `Dapper.Contrib` 2.0.78) | |
 | EF Core | `Microsoft.EntityFrameworkCore.SqlServer` **10.0.15** | |
-| EF6 | `EntityFramework` **6.5.2** | still runs on .NET 10 |
+| EF6 | `EntityFramework` **6.5.2** | the legacy ORM line, still running on .NET 10 — see the note below |
 | SQL client | `Microsoft.Data.SqlClient` **7.1.2** | used by ADO.NET, Dapper, EF Core and EntitySpaces; EF6 uses `System.Data.SqlClient` internally, the only exception |
 | Target framework | `net10.0` | |
+
+> **EF6 is not an out-of-date EF Core.** Entity Framework 6 (6.5.2) is the .NET Framework-era ORM, in maintenance and with no 6.x successor; **EF Core 10.0.15** is the current LTS line and its successor. Both are benchmarked in the same run, so EntitySpaces is compared against the legacy stack (EF6) and the current one (EF Core 10) at the same time.
+
 
 ## Results
 
@@ -251,7 +258,7 @@ pwsh tools/parse-bdn-artifacts.ps1 -Artifacts <path-to-BenchmarkDotNet.Artifacts
 
 1. **Inserts compare per-row `Save()` against batched writes.** This is a property of the current EntitySpaces implementation in `EntitySpacesService.InsertSingleProducts`, not of the engine, and it is the reason for the 3.3× gap at 200 rows.
 2. **The database grows during write benchmarks.** Inserts are committed and never truncated, with random GUID primary keys, so later iterations see a larger, more fragmented table: `efdp_product` already holds ~1.03 M rows, of which ~106 K are linked to a customer. Select benchmarks use `TOP(n)` without `ORDER BY`, so the rows are arbitrary.
-3. **Dataset size is not part of the repository yet.** The current database has 10,608 addresses, 10,608 customers, 106,080 product pages and ~1.03 M products; a seed script with those counts belongs in `docs/database/seed.md`.
+3. **The dataset is documented, not reproducible.** [`docs/database/seed.md`](docs/database/seed.md) records the row counts this run used (10,608 addresses, 10,608 customers, 106,080 product pages, ~1.03 M products) and the queries to verify them, but the repository has no seed script: the rows come from the original sample application plus every write benchmark that has run since.
 4. **The graph-read code is subtle.** The EF6 and EntitySpaces implementations broke silently in a way that only the `--validate` counts exposed; keep that check in the loop whenever the SQL shape changes.
 5. **`Mean` is not a stable metric in this configuration.** With `ColdStart` and 10 iterations, one stalled iteration moves the mean far above the median (for `Select 1 Product EntitySpaces`, median 0.568 ms against mean 16.6 ms). The analysis uses medians; both are in the appendix.
 6. **EntitySpaces configuration is process-global.** Each `EntitySpacesService` constructor appends to `esConfigSettings.ConnectionInfo.Connections`; with 18 classes in one process it works, but a single shared setup would be cleaner.
