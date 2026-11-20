@@ -229,7 +229,7 @@ Two things stand out. The driver and runtime move cut Dapper's read allocations 
 ## Reproducing
 
 ```bash
-git clone https://github.com/<owner>/EntitySpaces-vs-NET-ORMs-Benchmarks.git
+git clone https://github.com/paulcordova/EntitySpaces-vs-NET-ORMs-Benchmarks.git
 cd EntitySpaces-vs-NET-ORMs-Benchmarks
 
 # 1. Restore the benchmark database (SQL Server, database CamparationEntityDapper).
