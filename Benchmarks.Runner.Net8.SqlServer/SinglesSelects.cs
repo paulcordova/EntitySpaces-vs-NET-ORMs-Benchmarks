@@ -1,9 +1,9 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using Benchmarks.Tests.Net8.SqlServer.Context;
 using Benchmarks.Tests.Net8.SqlServer.Tests;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Benchmarks.Runner.Net8.SqlServer
@@ -45,7 +45,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsDapper1() =>
             await _singlesSelects.SelectSingleProductsDapper(1, _sqlConnection);
 
-        [Benchmark(Description = "Select 1 Product Ef Core 6")]
+        [Benchmark(Description = "Select 1 Product Ef Core")]
         public async Task SelectProductsEfCore61() =>
             await _singlesSelects.SelectSingleProductsEfCore(1, _efCoreContext);
 
@@ -96,7 +96,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsDapper5() =>
             await _singlesSelects.SelectSingleProductsDapper(5, _sqlConnection);
 
-        [Benchmark(Description = "Select 5 Product Ef Core 6")]
+        [Benchmark(Description = "Select 5 Product Ef Core")]
         public async Task SelectProductsEfCore65() =>
             await _singlesSelects.SelectSingleProductsEfCore(5, _efCoreContext);
 
@@ -147,7 +147,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsDapper50() =>
             await _singlesSelects.SelectSingleProductsDapper(50, _sqlConnection);
 
-        [Benchmark(Description = "Select 50 Product Ef Core 6")]
+        [Benchmark(Description = "Select 50 Product Ef Core")]
         public async Task SelectProductsEfCore650() =>
             await _singlesSelects.SelectSingleProductsEfCore(50, _efCoreContext);
 
@@ -156,7 +156,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
             await _singlesSelects.SelectSingleProductsEf6(50, _ef6Context);
 
         [Benchmark(Description = "Select 50 Product EntitySpaces")]
-        public async Task SelectProductsEntitySpaces1() => await _entitySpacesService.SelectSingleProducts(1);
+        public async Task SelectProductsEntitySpaces1() => await _entitySpacesService.SelectSingleProducts(50);
 
     }
 
@@ -198,7 +198,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsDapper500() =>
             await _singlesSelects.SelectSingleProductsDapper(500, _sqlConnection);
 
-        [Benchmark(Description = "Select 500 Product Ef Core 6")]
+        [Benchmark(Description = "Select 500 Product Ef Core")]
         public async Task SelectProductsEfCore6500() =>
             await _singlesSelects.SelectSingleProductsEfCore(500, _efCoreContext);
 
@@ -251,7 +251,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task SelectProductsDapper5000() =>
             await _singlesSelects.SelectSingleProductsDapper(5000, _sqlConnection);
 
-        [Benchmark(Description = "Select 5000 Product Ef Core 6")]
+        [Benchmark(Description = "Select 5000 Product Ef Core")]
         public async Task SelectProductsEfCore65000() =>
             await _singlesSelects.SelectSingleProductsEfCore(5000, _efCoreContext);
 

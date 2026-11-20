@@ -4,7 +4,7 @@ using Benchmarks.Tests.Net8.SqlServer.Context;
 using Benchmarks.Tests.Net8.SqlServer.Tests;
 using EntitySpaces;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Benchmarks.Runner.Net8.SqlServer
@@ -49,7 +49,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task InsertProductsDapper1() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsDapper(1, _sqlConnection);
 
-        [Benchmark(Description = "Insert 1 Product Ef Core 6")]
+        [Benchmark(Description = "Insert 1 Product Ef Core")]
         public async Task InsertProductsEfCore1() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsEfCore(1, _efCoreContext);
 
@@ -100,7 +100,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task InsertProductsDapper5() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsDapper(5, _sqlConnection);
 
-        [Benchmark(Description = "Insert 5 Product Ef Core 6")]
+        [Benchmark(Description = "Insert 5 Product Ef Core")]
         public async Task InsertProductsEfCore5() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsEfCore(5, _efCoreContext);
 
@@ -152,7 +152,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task InsertProductsDapper20() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsDapper(20, _sqlConnection);
 
-        [Benchmark(Description = "Insert 20 Products Ef Core 6")]
+        [Benchmark(Description = "Insert 20 Products Ef Core")]
         public async Task InsertProductsEfCore20() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsEfCore(20, _efCoreContext);
 
@@ -204,7 +204,7 @@ namespace Benchmarks.Runner.Net8.SqlServer
         public async Task InsertProductsDapper200() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsDapper(200, _sqlConnection);
 
-        [Benchmark(Description = "Insert 200 Products Ef Core 6")]
+        [Benchmark(Description = "Insert 200 Products Ef Core")]
         public async Task InsertProductsEfCore200() =>
             await _adoServiceBenchmarkDotNet.InsertSingleProductsEfCore(200, _efCoreContext);
 

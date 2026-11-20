@@ -3,7 +3,7 @@ using Benchmarks.Tests.Net8.SqlServer.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using Benchmarks.Runner.Net8.SqlServer.Models;
 
 namespace Benchmarks.Runner.Net8.SqlServer

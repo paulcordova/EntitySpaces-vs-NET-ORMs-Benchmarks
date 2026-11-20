@@ -5,7 +5,7 @@ using Benchmarks.Tests.Net8.SqlServer.Dtos;
 using Benchmarks.Tests.Net8.SqlServer.Tests;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace Benchmarks.Runner.Net8.SqlServer

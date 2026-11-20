@@ -13,6 +13,7 @@
     <PackageReference Include="EntityFramework" Version="6.5.2" />
     <PackageReference Include="EntitySpaces.ORM.SqlServer.NET" Version="2026.8.0" />
     <PackageReference Include="FastMember" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.30" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.30">
       <PrivateAssets>all</PrivateAssets>
