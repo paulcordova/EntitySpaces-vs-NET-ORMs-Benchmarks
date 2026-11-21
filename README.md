@@ -534,6 +534,15 @@ Raw BenchmarkDotNet tables for the 2026-11-20 .NET 10 run, one block per benchma
 
 </details>
 
+## License
+
+MIT, see [LICENSE](LICENSE). It covers the benchmark harness in this repository, the scenarios and the
+published results.
+
+The project grew from [MarcosDevTi's baseline](https://github.com/MarcosDevTi/Benchmark_Dapper2.0.78_vs_EntityFramework6.4.4_vs_EntityFrameworkCore6.0),
+which is credited below and was published without a license of its own; that original code is therefore
+not relicensed here. If you are the original author and would prefer different terms, open an issue.
+
 ## Credits
 
 - Benchmark baseline: [MarcosDevTi/Benchmark_Dapper2.0.78_vs_EntityFramework6.4.4_vs_EntityFrameworkCore6.0](https://github.com/MarcosDevTi/Benchmark_Dapper2.0.78_vs_EntityFramework6.4.4_vs_EntityFrameworkCore6.0).
