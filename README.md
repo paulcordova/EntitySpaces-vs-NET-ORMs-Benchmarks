@@ -7,7 +7,7 @@ BenchmarkDotNet comparison of **EntitySpaces 2026.11** against **Dapper 2.1**, *
 ## Who this is for
 
 - **Developers** choosing between EntitySpaces, Dapper, EF Core and EF6: per-scenario medians, allocations, and the SQL shape behind each number.
-- **Project leads** planning a move to .NET 10 LTS: EF6 still runs there, and the same workload is measured on both sides, so the data layer can be sized before committing.
+- **Project leads** planning a move to .NET 10 LTS from a .NET Framework app — WinForms, WebForms, or a plain ADO.NET data layer: EF6 still runs there, and the same workload is measured on both sides, so the data layer can be sized before committing.
 - **CTOs and architects** assessing risk: reproducible runs, archived results behind every published number, and the known limits stated up front.
 
 ## Summary
