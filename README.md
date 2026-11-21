@@ -4,6 +4,12 @@ BenchmarkDotNet comparison of **EntitySpaces 2026.11** against **Dapper 2.1**, *
 
 *This project builds on the benchmark baseline created by [MarcosDevTi](https://github.com/MarcosDevTi/Benchmark_Dapper2.0.78_vs_EntityFramework6.4.4_vs_EntityFrameworkCore6.0). It has been upgraded to .NET 10, extended with graph read/write scenarios, and re-focused to compare **EntitySpaces** against the current de facto .NET ORMs.*
 
+## Who this is for
+
+- **Developers** choosing between EntitySpaces, Dapper, EF Core and EF6: per-scenario medians, allocations, and the SQL shape behind each number.
+- **Project leads** planning a move to .NET 10 LTS: EF6 still runs there, and the same workload is measured on both sides, so the data layer can be sized before committing.
+- **CTOs and architects** assessing risk: reproducible runs, archived results behind every published number, and the known limits stated up front.
+
 ## Summary
 
 - **Reads are competitive.** From 1 to 5,000 rows EntitySpaces stays **1.1–1.4× behind Dapper** (0.568 vs 0.526 ms at one row; 32.3 vs 25.5 ms at 5,000) and **1.3–1.7× ahead of EF Core 10 and EF6** from 500 rows up, with EF6 allocating **3× the memory** at 5,000 rows.
