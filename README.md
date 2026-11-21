@@ -169,7 +169,7 @@ Allocated memory per operation:
 
 ### Reads
 
-EntitySpaces' read path lands between the hand-written stacks and the ORMs. At 5,000 rows it needs 32.3 ms against 25.5 ms for Dapper and 26.8 ms for ADO.NET — **27% and 20% behind** — while EF Core 10 needs 40.8 ms and EF6 56.1 ms, so EntitySpaces is **1.26× and 1.74× ahead** of them. Per row that is **6.5 µs**, against 5.1 µs for Dapper.
+EntitySpaces' read path sits between Dapper/ADO.NET and the two Entity Framework stacks. At 5,000 rows it needs 32.3 ms against 25.5 ms for Dapper and 26.8 ms for ADO.NET — **27% and 20% behind** — while EF Core 10 needs 40.8 ms and EF6 56.1 ms, so EntitySpaces is **1.26× and 1.74× ahead** of them. Per row that is **6.5 µs**, against 5.1 µs for Dapper, and the gap comes from how much work each layer adds per row: Dapper and ADO.NET hand back plain objects, EntitySpaces builds its own entity collection, and both Entity Framework stacks add materialization and change tracking.
 
 The memory picture is different from the latency picture. Dapper's allocation dropped when the run moved to `Microsoft.Data.SqlClient` 7.1.2 and .NET 10 (8.02 MB → 3.84 MB at 5,000 rows), while EntitySpaces stayed at 8.54 MB, so what used to be parity is now **2.2× Dapper**. The projection and its collection objects dominate; the row data does not.
 
