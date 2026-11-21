@@ -1,0 +1,34 @@
+Benchmark suite: EntitySpaces vs. .NET ORMs
+Copyright (c) 2026 Paul Córdova
+
+This repository is distributed under the MIT license found in LICENSE, with the
+single exception described below.
+
+Third-party material
+--------------------
+
+The project grew from the benchmark baseline published by MarcosDevTi at
+
+    https://github.com/MarcosDevTi/Benchmark_Dapper2.0.78_vs_EntityFramework6.4.4_vs_EntityFrameworkCore6.0
+
+That repository declares no license, so its original code remains under its
+author's copyright, with all rights reserved. The MIT license in this repository
+does not apply to that material and grants no rights over it.
+
+The material derived from that baseline — the original project layout, the first
+version of the benchmark harness, and the data model the scenarios started from
+— is attributed to its author and is not relicensed here.
+
+If you are the author of that baseline and would prefer different terms, or want
+the attribution changed, please open an issue.
+
+Scope of the MIT license
+------------------------
+
+Everything else in this repository is the work of the copyright holder above and
+is covered by the MIT license:
+
+- the .NET 10 migration and the current benchmark classes;
+- the graph read/write scenarios and the EntitySpaces integration;
+- the validation tooling (`--validate`) and the artifact parser in `tools/`;
+- the published results under `docs/results/` and the documentation.
